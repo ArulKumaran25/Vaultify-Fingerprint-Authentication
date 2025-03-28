@@ -1,0 +1,207 @@
+<div class="dashboard-container">
+  <!-- Fixed Sidebar -->
+  <div class="sidebar">
+    <h2>Admin Dashboard</h2>
+    <ul>
+      <li (click)="selectOption('users')" [class.active]="selectedOption === 'users'">
+        <span>👥 Registered Users</span>
+      </li>
+      <li (click)="selectOption('logs')" [class.active]="selectedOption === 'logs'">
+        <span>📊 Login Details</span>
+      </li>
+      <li (click)="selectOption('contacts')" [class.active]="selectedOption === 'contacts'">
+        <span>📩 Contact Forms</span>
+      </li>
+      <li class="logout-item" (click)="logout()">
+        <span>🚪 Logout</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Scrollable Main Content -->
+  <div class="main-content-wrapper">
+    <div class="main-content">
+      <!-- Welcome Card -->
+      <div class="welcome-card">
+        <div class="welcome-content">
+          <img src="\assets\admin-avatar2.jpg" alt="Admin Avatar" class="admin-avatar">
+          <div>
+            <h1>👋 Welcome, Admin!</h1>
+            <p>Manage and Monitor user activities effortlessly.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <h3>{{ users.length }}</h3>
+          <p>Registered Users</p>
+        </div>
+        <div class="stat-card">
+          <h3>{{ activityLogs.length }}</h3>
+          <p>Login counts</p>
+        </div>
+        <div class="stat-card">
+          <h3>{{ contactForms.length }}</h3>
+          <p>Contact Submissions</p>
+        </div>
+      </div>
+
+      <!-- Registered Users Section -->
+      <div *ngIf="selectedOption === 'users'" class="section">
+        <div class="table-container">
+          <h2>📋 Registered Users</h2>
+          <table *ngIf="users.length > 0; else noUsers">
+            <thead>
+              <tr>
+                <th>👤 Name</th>
+                <th>📧 Email</th>
+                <th>📅 Registered Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users | slice:0:visibleUsers">
+                <td>{{ user.name || 'N/A' }}</td>
+                <td>{{ user.email || 'N/A' }}</td>
+                <td>{{ user.timestamp | date:'dd/MM/yyyy, h:mm a' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #noUsers>
+            <p>No registered users found.</p>
+          </ng-template>
+          <button *ngIf="users.length > 5" class="toggle-button" (click)="toggleUsers()">
+            <span>{{ showAllUsers ? 'Show Less' : 'Show More' }}</span>
+            <span>{{ showAllUsers ? '▲' : '▼' }}</span>
+          </button>
+        </div>
+        <div class="chart-container">
+          <h2>📈 User Registration Trends</h2>
+          <svg id="userChart"></svg>
+        </div>
+      </div>
+
+      <!-- Activity Logs Section -->
+      <div *ngIf="selectedOption === 'logs'" class="section">
+        <div class="table-container">
+          <h2>📂 User Activity Logs</h2>
+          <table *ngIf="activityLogs.length > 0; else noLogs">
+            <thead>
+              <tr>
+                <th>👤 User Email</th>
+                <th>🕒 Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let log of activityLogs | slice:0:visibleLogs">
+                <td>{{ log.userId || 'N/A' }}</td>
+                <td>{{ log.timestamp | date:'dd/MM/yyyy, h:mm a' }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #noLogs>
+            <p>No activity logs found.</p>
+          </ng-template>
+          <button *ngIf="activityLogs.length > 5" class="toggle-button" (click)="toggleLogs()">
+            <span>{{ showAllLogs ? 'Show Less' : 'Show More' }}</span>
+            <span>{{ showAllLogs ? '▲' : '▼' }}</span>
+          </button>
+        </div>
+        <div class="chart-container">
+          <h2>📊 User Activity Trends</h2>
+          <svg id="activityChart"></svg>
+        </div>
+      </div>
+
+      <!-- Contact Forms Section -->
+      <div *ngIf="selectedOption === 'contacts'" class="section">
+        <div class="table-container">
+          <h2>📩 Contact Form Submissions</h2>
+          <table *ngIf="contactForms.length > 0; else noContacts">
+            <thead>
+              <tr>
+                <th>👤 Name</th>
+                <th>📧 Email</th>
+                <th>📝 Message</th>
+                <th>📅 Submitted Date</th>
+                <th>✉️ Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let form of contactForms | slice:0:visibleContacts">
+                <td>{{ form.name || 'N/A' }}</td>
+                <td>{{ form.email || 'N/A' }}</td>
+                <td>{{ form.message || 'N/A' }}</td>
+                <td>{{ form.timestamp | date:'dd/MM/yyyy, h:mm a' }}</td>
+                <td><button class="reply-button" (click)="openReplyModal(form.email)">Reply</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #noContacts>
+            <p>No contact form submissions found.</p>
+          </ng-template>
+          <button *ngIf="contactForms.length > 5" class="toggle-button" (click)="toggleContacts()">
+            <span>{{ showAllContacts ? 'Show Less' : 'Show More' }}</span>
+            <span>{{ showAllContacts ? '▲' : '▼' }}</span>
+          </button>
+        </div>
+        <div class="chart-container">
+          <h2>📨 Contact Form Trends</h2>
+          <svg id="contactChart"></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reply Modal -->
+<!-- Only showing the updated modal section - rest of the HTML remains the same -->
+<!-- Reply Modal -->
+<div *ngIf="isReplyModalOpen" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>✉️ Send Reply</h2>
+      <button class="close-button" (click)="closeReplyModal()">&times;</button>
+    </div>
+    
+    <form (ngSubmit)="sendReply()" class="reply-form">
+      <div class="form-group">
+        <label for="toEmail">To:</label>
+        <div class="email-display">{{replyToEmail}}</div>
+      </div>
+      
+      <div class="form-group">
+        <label for="subject">Subject:</label>
+        <input id="subject" [(ngModel)]="replySubject" name="subject" required 
+               placeholder="Regarding your inquiry">
+      </div>
+      
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" [(ngModel)]="replyMessage" name="message" required
+                  placeholder="Type your response here..."></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label class="checkbox-container">
+          <input type="checkbox" [(ngModel)]="includeTemplate" name="includeTemplate">
+          <span class="checkmark"></span>
+          Include standard response template
+        </label>
+      </div>
+      
+      <div *ngIf="emailError" class="error-message">
+        {{ emailError }}
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="cancel-btn" (click)="closeReplyModal()">Cancel</button>
+        <button type="submit" class="send-btn">
+          <span *ngIf="!isSending">Send Reply</span>
+          <span *ngIf="isSending" class="spinner"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

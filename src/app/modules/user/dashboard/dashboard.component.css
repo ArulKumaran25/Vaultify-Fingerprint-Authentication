@@ -1,0 +1,602 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #000; /* Changed background color to black */
+  color: #fff; /* Changed text color to white */
+ /* Ensure the page is scrollable */
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  max-width: 100%;
+  /* margin: 40px auto; */
+  padding: 100px;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+/* Header */
+h1 {
+  font-size: 2.5rem;
+  color: #e1c699; /* Adjusted color for better visibility on black background */
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #ddd; /* Adjusted color for better visibility on black background */
+  font-weight: 400;
+}
+
+/* Upload Section */
+.upload-section {
+  background: rgba(255, 255, 255, 0.1); /* Adjusted background for dark theme */
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Adjusted shadow for dark theme */
+  text-align: center;
+  color: white;
+}
+
+.upload-container {
+  border: 2px dashed #e1c699; /* Adjusted border color for dark theme */
+  padding: 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.upload-icon {
+  font-size: 50px;
+  color: #e1c699; /* Adjusted icon color for dark theme */
+}
+
+/* Buttons */
+.btn {
+  padding: 12px 20px;
+  background: #e1c699; /* Adjusted button background for dark theme */
+  color: #333; /* Adjusted button text color for dark theme */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #c3a867; /* Adjusted hover background for dark theme */
+}
+
+/* Search & Sorting */
+.search-sort-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 65%;
+  padding: 12px;
+  border: 2px solid #e1c699; /* Adjusted border color for dark theme */
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+  background: #333; /* Adjusted background for dark theme */
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+.search-input:focus {
+  border-color: #c3a867; /* Adjusted focus border color for dark theme */
+  box-shadow: 0 4px 6px rgba(225, 198, 153, 0.3); /* Adjusted focus shadow for dark theme */
+}
+
+/* Files Section */
+.files-section {
+  background: #1e1e1e; /* Ensure full background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+  color: white;
+  width: 100%;
+  position: relative;
+}
+
+/* Ensure the h3 heading matches the background */
+.files-section h3 {
+  background: inherit; /* Inherits the background from parent */
+  padding: 10px;
+  margin: 0;
+  border-radius: 8px; /* Rounded edges for a better look */
+  font-weight: bold;
+}
+
+/* Fix table rows inside */
+.files-section table {
+  width: 100%;
+  border-collapse: collapse;
+  background: inherit; /* Match parent background */
+}
+
+/* Ensure table cells are filled properly */
+.files-section th, .files-section td {
+  padding: 10px;
+  text-align: left;
+  background: inherit; /* Ensures uniformity */
+  color: white;
+}
+
+/* Add a separator line if needed */
+.files-section th {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Fix empty state message */
+.files-section td[colspan] {
+  text-align: center;
+  padding: 15px;
+}
+
+
+/* File List */
+.file-list-container {
+  margin-top: 15px;
+}
+
+.file-item:hover {
+  background: rgba(225, 198, 153, 0.15); /* Adjusted hover background for dark theme */
+}
+
+.rename-input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #e1c699; /* Adjusted border color for dark theme */
+  border-radius: 5px;
+  outline: none;
+  background: #333; /* Adjusted background for dark theme */
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+/* File Actions */
+.file-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.view { color: #007bff; }
+.edit { color: #ffc107; }
+.save { color: #28a745; }
+.delete { color: #dc3545; }
+.download { color: #17a2b8; }
+
+/* Dark Mode */
+body.black-background,
+body.dark-mode {
+  background: #000; /* Changed background color to black */
+  color: #fff; /* Changed text color to white */
+}
+
+.black-background h1,
+.black-background h2,
+.dark-mode h1,
+.dark-mode h2 {
+  color: #e1c699; /* Adjusted header colors for dark theme */
+}
+
+.black-background .upload-section,
+.black-background .files-section {
+  background: #1e1e1e; /* Adjusted background for dark theme */
+}
+
+.black-background .search-input {
+  background: #2a2a2a; /* Adjusted background for dark theme */
+  color: #fff; /* Adjusted text color for dark theme */
+  border-color: #e1c699; /* Adjusted border color for dark theme */
+}
+
+.black-background .search-input:focus {
+  border-color: #e1c699; /* Adjusted focus border color for dark theme */
+  box-shadow: 0 4px 6px rgba(225, 198, 153, 0.3); /* Adjusted focus shadow for dark theme */
+}
+
+.black-background .btn {
+  background: #e1c699; /* Adjusted button background for dark theme */
+  color: #333; /* Adjusted button text color for dark theme */
+}
+
+.black-background .btn:hover {
+  background: #c3a867; /* Adjusted hover background for dark theme */
+}
+
+.black-background .file-item {
+  background: rgba(225, 198, 153, 0.1); /* Adjusted background for dark theme */
+}
+
+.black-background .file-item:hover {
+  background: rgba(225, 198, 153, 0.2); /* Adjusted hover background for dark theme */
+}
+
+.user-welcome {
+  max-width: 1100px;
+  margin: 40px auto 20px;
+  padding: 25px;
+  background: #1e1e1e; /* Ensure full background */
+  border-radius: 15px;
+  box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.1), -6px -6px 15px rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative; /* Ensures no unwanted overlaps */
+}
+
+/* Ensure the inner content does not override the background */
+.user-welcome * {
+  background: none !important;
+}
+
+/* If there's an inner div causing issues */
+.user-welcome-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Profile image styling */
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* Text Styling */
+.user-welcome-text {
+  color: #e1c699;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+
+.welcome-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+
+.welcome-text h1 {
+  font-size: 1.8rem;
+  color: #e1c699; /* Adjusted header color for dark theme */
+  font-weight: bold;
+  margin: 0;
+}
+
+.welcome-text p {
+  font-size: 1rem;
+  color: #ddd; /* Adjusted text color for dark theme */
+  margin: 5px 0 0;
+  margin-left: 45px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay-content {
+  background: #1e1e1e; /* Adjusted background for dark theme */
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preview-body {
+  margin-top: 20px;
+}
+
+.file-preview-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.file-preview-pdf {
+  width: 100%;
+  height: 500px;
+}
+
+/* Scrollable Container for PDF, DOCX, and Text Files */
+.scrollable-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #444; /* Adjusted border color for dark theme */
+  border-radius: 4px;
+  background: #1e1e1e; /* Adjusted background for dark theme */
+}
+
+.file-preview-pdf {
+  width: 100%;
+  height: 80vh;
+  border: none;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: monospace;
+  margin: 0;
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+.no-bullets {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.no-bullets li {
+  margin-bottom: 5px;
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+/* Tooltip container */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip-text {
+  visibility: hidden;
+  width: 100px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -50px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* Show the tooltip on hover */
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Table Styling */
+.file-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.file-table th, .file-table td {
+  border: 1px solid #444; /* Adjusted border color for dark theme */
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+.file-table th {
+  background-color: #333; /* Adjusted background for dark theme */
+  font-weight: 600;
+  color: #e1c699; /* Adjusted header color for dark theme */
+}
+
+.file-table tr {
+  transition: background-color 0.3s;
+}
+
+.file-table tr:hover {
+  background-color: rgba(225, 198, 153, 0.05); /* Adjusted hover background for dark theme */
+}
+
+.file-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Overlay Styling */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.overlay-content {
+  background: #1e1e1e; /* Adjusted background for dark theme */
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.preview-body {
+  max-height: 70vh;
+  overflow-y: auto;
+
+}
+
+/* Image Preview */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-preview-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* PDF Preview */
+.file-preview-pdf {
+  width: 100%;
+  height: 70vh;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Scrollable Container for PDF, Text, and DOCX */
+.scrollable-container {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #444; /* Adjusted border color for dark theme */
+  border-radius: 8px;
+  background: #1e1e1e; /* Adjusted background for dark theme */
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: monospace;
+  margin: 0;
+  color: #fff; /* Adjusted text color for dark theme */
+}
+
+.upload-info {
+  font-size: 14px;
+  color: #ddd; /* Adjusted text color for dark theme */
+  margin-bottom: 15px;
+  text-align: center;
+  background-color: #1e1e1e; /* Adjusted background for dark theme */
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444; /* Adjusted border color for dark theme */
+}
+
+/* Loading Indicator */
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #e1c699; /* Adjusted spinner color for dark theme */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-indicator p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #ddd; /* Adjusted text color for dark theme */
+}
+
+/* Custom Snackbar Styles */
+.success-snackbar {
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Red background for error */
+  color: white;
+}

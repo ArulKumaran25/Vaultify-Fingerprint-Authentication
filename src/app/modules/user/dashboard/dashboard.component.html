@@ -1,0 +1,210 @@
+<div class="dashboard-container">
+    <!-- Header -->
+    <div class="welcome-card user-welcome">
+      <div class="welcome-content">
+        <img src="assets/user-avatar2.jpg" alt="User Avatar" class="user-avatar">
+        <div class="welcome-text">
+          <h1>👋 Welcome, Dear User!</h1>
+          <p>Manage and access your files securely.</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Upload Section -->
+    <div class="upload-section">
+      <h3>Upload Files Here</h3>
+       <!-- Informational message about accepted file types and maximum size -->
+    <p class="upload-info">
+      Accepted file types: {{ acceptedFileTypes }}. Maximum file size: {{ maxFileSizeMB }}MB.
+    </p>
+    <br>
+  
+      <div class="upload-container" [class.drag-over]="isDragOver" (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave()" (drop)="onDrop($event)">
+        <p *ngIf="!isDragOver">
+          Drag & drop your files here or
+          <label for="fileInput" class="bold-text">click to browse</label>
+        </p>
+  
+        <label for="fileInput" class="upload-icon-label">
+          <span class="material-icons upload-icon">cloud_upload</span>
+        </label>
+  
+        <input type="file" id="fileInput" (change)="onFileSelected($event)" accept=".pdf, .docx, .txt, image/*"
+          multiple hidden>
+      </div>
+  
+      <div *ngIf="selectedFiles.length > 0" class="file-preview">
+        <p><strong>Selected Files:</strong></p>
+        <ul class="no-bullets">
+          <li *ngFor="let file of selectedFiles">{{ file.name }}</li>
+        </ul>
+      </div>
+      
+      <br>
+  
+      <p class="upload-message">{{ uploadMessage }}</p>
+      <button (click)="onFileUpload($event)" [disabled]="selectedFiles.length === 0" class="btn">
+        {{ uploadButtonText }}
+      </button>
+    </div>
+  
+    <!-- Search & Sorting -->
+    <div class="search-sort-section">
+      <input type="text" [(ngModel)]="searchValue" (ngModelChange)="searchUsingFileName()" placeholder="Search Files..."
+        class="search-input" />
+  
+      <div class="sort-section">
+        <label for="sortFiles">Sort By:</label>
+        <select id="sortFiles" (change)="sortFiles($event)">
+          <option value="name">Name</option>
+          <option value="date">Uploaded Date</option>
+          <option value="type">File Type</option>
+        </select>
+      </div>
+    </div>
+  
+    <!-- Files Section -->
+    <div class="files-section">
+      <h3>Your Files</h3>
+      <div class="file-list-container">
+        <div *ngIf="filteredFiles.length === 0" class="no-files">
+          <p>No files uploaded yet. Start by uploading a file!</p>
+        </div>
+  
+        <table *ngIf="filteredFiles.length > 0" class="file-table">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Uploaded Date</th>
+              <th>File Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of filteredFiles; index as i" class="file-item">
+              <td>
+                <span *ngIf="renameIndex !== i">{{ file.fileName }}</span>
+                <input *ngIf="renameIndex === i" [(ngModel)]="newFileName" class="rename-input" />
+              </td>
+              <td>{{ file.uploadedDate | date:'medium' }}</td>
+              <td>{{ file.mimeType }}</td>
+              <td>
+                <div class="file-actions">
+                  <div class="tooltip-container">
+                    <button (click)="onViewFile(file)" class="btn-icon view">👁️</button>
+                    <span class="tooltip-text">View File</span>
+                  </div>
+  
+                  <div class="tooltip-container" *ngIf="renameIndex !== i">
+                    <button (click)="editFileName(i)" class="btn-icon edit">✏️</button>
+                    <span class="tooltip-text">Edit File Name</span>
+                  </div>
+  
+                  <div class="tooltip-container" *ngIf="renameIndex === i">
+                    <button (click)="saveFileName(i)" class="btn-icon save">💾</button>
+                    <span class="tooltip-text">Save File Name</span>
+                  </div>
+  
+                  <div class="tooltip-container">
+                    <button (click)="deleteFile(i)" class="btn-icon delete">🗑️</button>
+                    <span class="tooltip-text">Delete File</span>
+                  </div>
+                  <div class="tooltip-container">
+                    <button (click)="downloadFile(file)" class="btn-icon download">⬇️</button>
+                    <span class="tooltip-text">Download File</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Recycle Bin Section -->
+    <div class="files-section">
+      <h3>Recycle Bin</h3>
+      <div class="file-list-container">
+        <div *ngIf="recycleBinFiles.length === 0" class="no-files">
+          <p>No files in recycle bin.</p>
+        </div>
+  
+        <table *ngIf="recycleBinFiles.length > 0" class="file-table">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Uploaded Date</th>
+              <th>File Type</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of recycleBinFiles; index as i" class="file-item">
+              <td>{{ file.fileName }}</td>
+              <td>{{ file.uploadedDate | date:'medium' }}</td>
+              <td>{{ file.mimeType }}</td>
+              <td>
+                <div class="file-actions">
+                  <div class="tooltip-container">
+                    <button (click)="restoreFile(i)" class="btn-icon restore">↩️</button>
+                    <span class="tooltip-text">Restore File</span>
+                  </div>
+  
+                  <div class="tooltip-container">
+                    <button (click)="deleteFromRecycleBin(i)" class="btn-icon delete">🗑️</button>
+                    <span class="tooltip-text">Delete Permanently</span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <!-- File Preview Overlay -->
+  
+<div *ngIf="isPreviewOpen" class="overlay">
+  <div class="overlay-content">
+    <h2>File Preview</h2>
+
+    <span class="close-btn" (click)="closePreview()">×</span>
+    <div class="preview-header">
+      <h2>{{ previewFile?.fileName }}</h2>
+      <button class="extension-arrow" (click)="navigateToView(previewFile.fileId)">↗</button>
+    </div>
+
+    <!-- Loading Indicator for CouchDB Fetch -->
+    <div *ngIf="isFetchingFile" class="loading-indicator">
+      <div class="spinner"></div>
+      <p>Fetching file from server...</p>
+    </div>
+
+    <!-- File Preview Content -->
+    <div *ngIf="!isFetchingFile" class="preview-body">
+      <div *ngIf="pdfSrc">
+        <h3>PDF Viewer</h3>
+        <pdf-viewer [src]="pdfSrc" [render-text]="false" style="width: 100%; height: 500px;"></pdf-viewer>
+    </div>
+
+      <div *ngIf="textContent">
+        <h3>Text Viewer</h3>
+        <textarea readonly rows="20" cols="100">{{ textContent }}</textarea>
+      </div>
+
+      <div *ngIf="imageSrc">
+        <h3>Image Viewer</h3>
+        <img [src]="imageSrc" alt="Image Preview" style="max-width: 100%; max-height: 500px;" />
+      </div>
+
+      <div *ngIf="!pdfSrc && !textContent && !imageSrc">
+        <h3>Document Viewer</h3>
+        <div #docxViewer style="width: 100%; height: 500px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+  

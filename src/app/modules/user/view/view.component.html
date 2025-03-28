@@ -1,0 +1,85 @@
+<div *ngIf="file">
+  <!-- Sidebar for Actions -->
+  <div class="sidebar">
+    <button class="sidebar-button zoom-in" (click)="zoomIn()" title="Zoom In">
+      <span class="icon">➕</span>
+      <span class="label">Zoom In</span>
+    </button>
+    <button class="sidebar-button zoom-out" (click)="zoomOut()" title="Zoom Out">
+      <span class="icon">➖</span>
+      <span class="label">Zoom Out</span>
+    </button>
+    <button class="sidebar-button read" (click)="readAloud()" title="Read Aloud">
+      <span class="icon">🔊</span>
+      <span class="label">Read Aloud</span>
+    </button>
+    <button class="sidebar-button download" (click)="downloadFile()" title="Download File">
+      <span class="icon">⬇️</span>
+      <span class="label">Download</span>
+    </button>
+    <button class="sidebar-button favorite" (click)="toggleFavorite()" title="Toggle Favorite">
+      <span class="icon">❤️</span>
+      <span class="label">Favorite</span>
+    </button>
+  </div>
+
+  <!-- File Content -->
+  <div class="file-container">
+    <!-- File Header -->
+    <div class="file-header">
+      <h2>{{ file.fileName }}</h2>
+      <div class="file-actions">
+        <button class="icon-button edit" (click)="toggleEditing()" title="Edit Text">✏️</button>
+        <button class="icon-button copy" (click)="copyText()" title="Copy Text">📋</button>
+        <button class="icon-button save" (click)="saveText()" title="Save Text">💾</button>
+        <button class="icon-button full-screen" (click)="toggleFullScreen()" title="Toggle Full Screen">⛶</button>
+      </div>
+    </div>
+
+    <!-- File Content -->
+    <div class="file-content" [ngClass]="{ 'full-screen': isFullScreen }">
+      <!-- Back Button for Full-Screen Mode -->
+      <button *ngIf="isFullScreen" class="icon-button back" (click)="exitFullScreen()" title="Exit Full Screen">
+        ←
+      </button>
+
+      <!-- PDF File -->
+      <div *ngIf="file.mimeType === 'application/pdf'">
+        <iframe [src]="pdfSrc" width="100%" height="600px" [style.transform]="'scale(' + zoomLevel + ')'"></iframe>
+      </div>
+
+      <!-- Text File -->
+      <div *ngIf="file.mimeType === 'text/plain'">
+        <textarea *ngIf="isEditing; else textDisplay" [(ngModel)]="textContent" rows="20" cols="80"></textarea>
+        <ng-template #textDisplay>
+          <pre [style.transform]="'scale(' + zoomLevel + ')'">{{ textContent }}</pre>
+        </ng-template>
+        <p *ngIf="copiedText" class="copied-text">{{ copiedText }}</p>
+      </div>
+
+      <!-- Image File -->
+      <div *ngIf="file.mimeType.startsWith('image/')">
+        <img [src]="imageSrc" alt="{{ file.fileName }}" [style.transform]="'scale(' + zoomLevel + ') rotate(' + imageRotation + 'deg)'" />
+        <div class="image-actions">
+          <button class="icon-button rotate" (click)="rotateImage()" title="Rotate Image">🔄</button>
+        </div>
+      </div>
+
+      <!-- DOCX File -->
+      <div *ngIf="file.mimeType === 'application/msword' || file.mimeType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'">
+        <div #docxViewer></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Indicator -->
+<div *ngIf="isLoading" class="loading-indicator">
+  <div class="spinner"></div>
+  <p>Loading file...</p>
+</div>
+
+<!-- Error Message -->
+<div *ngIf="!file && !isLoading" class="error-message">
+  <p>No file data available.</p>
+</div>

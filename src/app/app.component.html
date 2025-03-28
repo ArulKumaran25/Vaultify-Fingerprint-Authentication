@@ -1,0 +1,55 @@
+<div class="app-container">
+  <header *ngIf="showNavbar && !isAdminPage()">
+    <h1>{{ title }}</h1>
+  </header>
+  
+  <nav *ngIf="!isAdminPage() && !isViewPage()" [class.scrolled]="isScrolled">
+    <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+    <ul [class.show]="isMenuOpen">
+      <li><a (click)="onNavClick('/home')">Home</a></li>
+      <li><a (click)="onNavClick('/features')">Features</a></li>
+      <li><a (click)="onNavClick('/contact-us')">Contact Us</a></li>
+      <li *ngIf="!currentuser; else userBlock">
+        <a (click)="onNavClick('/user/login')">Login</a>
+      </li>
+      <ng-template #userBlock>
+        <div class="user-dropdown">
+          <button class="user-btn">
+            {{ currentuser }}
+          </button>
+          <div class="dropdown-content">
+            <button (click)="openLogoutDialog()">
+              <span class="logout-icon">⎋</span> Logout
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </ul>
+  </nav>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal-overlay" *ngIf="showLogoutModal">
+  <div class="modal">
+    <p>Are you sure you want to logout?</p>
+    <div class="modal-actions">
+      <button (click)="closeLogoutDialog()">Cancel</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation Confirmation Modal -->
+<div class="modal-overlay" *ngIf="showNavWarningModal">
+  <div class="modal">
+    <p>You will be logged out if you navigate away. Do you want to continue?</p>
+    <div class="modal-actions">
+      <button (click)="cancelNavigation()">Stay</button>
+      <button class="logout-btn" (click)="confirmNavigation()">Leave</button>
+    </div>
+  </div>
+</div>

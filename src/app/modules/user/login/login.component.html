@@ -1,0 +1,91 @@
+<div class="animated-message">
+  <h3>{{welcomeMessage}}</h3>
+</div>
+
+<div class="login-container">
+  <div class="form-container">
+    <!--Login Form-->
+    <div class="form-box">
+      <h2>Login</h2>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      
+      <!-- <button type="button" (click)="loginWithFingerprint()">Login with Fingerprint</button> -->
+      <p>Or</p>
+      
+      <form #loginForm="ngForm" (ngSubmit)="loginWithEmailPassword()">
+        <!-- Email Input Field with Validation -->
+        <div>
+          <label for="email">Email:</label>
+          <input 
+            type="email"
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            required
+            placeholder="Enter your Email id"
+            #emailField="ngModel"
+            email
+          />
+          <!-- Validation Error Messages for Email -->
+          <div *ngIf="emailField.invalid && (emailField.dirty || emailField.touched)" class="validation-message">
+            <div *ngIf="emailField.errors?.['required']">Email is required.</div>
+            <div *ngIf="emailField.errors?.['email']">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <!-- Password Input Field with Validation -->
+        <div>
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+            placeholder="Enter your password"
+            minlength="6"
+            #passwordField="ngModel"
+          />
+          <!-- Validation Error Messages for Password -->
+          <div *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)" class="validation-message">
+            <div *ngIf="passwordField.errors?.['required']">Password is required.</div>
+            <div *ngIf="passwordField.errors?.['minlength']">Password must be at least 6 characters long.</div>
+          </div>
+        </div>
+
+        <!-- Submit Button (Disabled if the form is invalid) -->
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+        <button type="button" (click)="authenticateWithFingerPrint()">Login with fingerprint</button>
+
+        <div class="policy-footer">
+          <small>By continuing, you agree to our 
+            <a routerLink="/user/privacy-policy" class="policy-link">Privacy Policy</a>
+          </small>
+        </div>
+        
+        <div class="login-link">
+          <p>Don't have an account ? <a routerLink="/user/register">Register</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- Full-Screen Overlay for Login Success -->
+<div *ngIf="showPopup" class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <h1>Welcome Back!</h1>
+    </div>
+    <div class="popup-body">
+      <p>You have successfully logged in.</p>
+    </div>
+    <div class="popup-footer">
+      <button (click)="closePopup()">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- Canvas for Fireworks Effect -->
+<canvas id="confetti-canvas"></canvas>

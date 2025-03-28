@@ -1,0 +1,52 @@
+<div class="features-container">
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="main-heading">Digital Vault Features</h1>
+      <p class="subheading">Secure storage solutions with military-grade encryption</p>
+      
+      <div class="search-container">
+        <input type="text" 
+               placeholder="Search features..." 
+               [(ngModel)]="searchQuery" 
+               class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-grid-container">
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of filterFeatures()" (click)="toggleFlip(feature)">
+        <!-- Card content remains the same as before -->
+        <div class="card-inner" [class.flipped]="feature.flipped">
+          <div class="card-front">
+            <div class="icon-container">
+              <span class="feature-icon">{{ feature.icon }}</span>
+            </div>
+            <h3>{{ feature.title }}</h3>
+            <p>{{ feature.description }}</p>
+            <span class="flip-indicator">ℹ️ More info</span>
+          </div>
+          
+          <div class="card-back">
+            <div class="back-content">
+              <p>{{ feature.moreInfo }}</p>
+              <img [src]="feature.image" alt="Feature Image" class="feature-image">
+            </div>
+            <button class="explore-btn" 
+                    (click)="toggleFlip(feature); $event.stopPropagation()"
+                    (click)="navigateToLogin($event)">
+              Get Started
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="policy-footer">
+    <p>All data handling complies with our 
+      <a routerLink="/user/privacy-policy" class="policy-link">Privacy Policy</a>
+    </p>
+  </footer>
+</div>

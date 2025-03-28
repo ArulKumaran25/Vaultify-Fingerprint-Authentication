@@ -1,0 +1,257 @@
+/* Full-Screen Background */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Container to align form to the left */
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  font-family: 'Georgia', serif;
+  color: #8c7c3d;
+  height: 100vh;  
+  width: 100%;
+  background: url("/assets/1740122654445.jpg") no-repeat center center/cover;
+  padding-left: 10%; 
+  box-sizing: border-box;
+}
+
+/* Form Box */
+.form-box {
+  margin-top: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(140, 124, 61, 0.3);
+  width: 350px; 
+  transition: transform 0.3s ease-in-out;
+}
+
+.form-box:hover {
+  transform: scale(1.05);
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: #8c7c3d;
+  outline: none;
+  box-shadow: 0 0 6px rgba(140, 124, 61, 0.3);
+}
+
+/* Buttons */
+button {
+  background: #8c7c3d;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #c9a73e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-container {
+    justify-content: center; /* Center form on smaller screens */
+    padding-left: 0;
+  }
+}
+
+/* Background Fixed */
+.login-container { 
+  display: flex;
+  flex-direction: row;
+  margin: 0px;
+  width: 1400px;
+  overflow-y: hidden;
+  height: 100vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+/* Full-Screen Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Ensure overlay is above everything except canvas */
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Popup Container */
+.popup {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideIn 0.5s ease-in-out;
+  max-width: 400px;
+  width: 90%;
+  z-index: 1002; /* Ensure popup is above overlay */
+}
+
+/* Popup Header */
+.popup-header {
+  text-align: center;
+  padding: 20px;
+  background: #8c7c3d;
+  color: white;
+}
+
+.popup-header .icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  animation: checkmark 0.5s ease-in-out;
+}
+
+.popup-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+/* Popup Body */
+.popup-body {
+  padding: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.popup-body p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Popup Footer */
+.popup-footer {
+  padding: 20px;
+  text-align: center;
+}
+
+.popup-footer button {
+  background: #8c7c3d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.popup-footer button:hover {
+  background: #c9a73e;
+  transform: scale(1.05);
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Custom Snackbar Styles */
+.success-snackbar {
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Red background for error */
+  color: white;
+}
+
+/* Ensure snackbar appears above the pop-up */
+.mat-snack-bar-container {
+  position: fixed;
+  top: 20px; /* Adjust this value as needed */
+  z-index: 1002; /* Ensure it's above the pop-up */
+}
+
+/* Canvas for Fireworks Effect */
+#confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Ensure it doesn't block clicks */
+  z-index: 1050; /* Ensure it's above everything */
+}
+
+
+/* Privacy Policy Footer */
+.policy-footer {
+  text-align: center;
+  margin-top: 1rem;
+  color: #5d4a1a;
+  font-size: 0.95rem;
+}
+
+.policy-link {
+  color: #8c7c3d;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.policy-link:hover {
+  text-decoration: underline;
+  color: #c9a73e;
+}

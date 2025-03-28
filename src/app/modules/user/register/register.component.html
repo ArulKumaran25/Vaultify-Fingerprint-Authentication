@@ -1,0 +1,80 @@
+<div class="register-container">
+  <div class="form-container">
+    <div class="form-box">
+      <div class="form-header">
+        <h2>Register</h2>
+      </div>
+      <form (ngSubmit)="register()" #registerForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" [(ngModel)]="name" name="name" required placeholder="Enter your Name" minlength="3"/>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your Mail id" required />
+          <div *ngIf="email && !isEmailValid()" class="error">
+            <small>Email must not contain uppercase letters and must follow a valid structure.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password"
+            required />
+          <div *ngIf="password && !isPasswordStrong()" class="error">
+            <small>Password must be at least 6 characters long, include one uppercase letter, one lowercase letter, one number, and one special character.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword"
+            placeholder="Re-Enter your password" required />
+          <div *ngIf="confirmPassword && !passwordsMatch()" class="error">
+            <small>Passwords do not match.</small>
+          </div>
+        </div>
+
+        <div class="privacy-consent">
+          <input type="checkbox" id="privacyConsent" name="privacyConsent" required [(ngModel)]="acceptedPrivacy">
+          <label for="privacyConsent">
+            I agree to the <a routerLink="/user/privacy-policy" target="_blank" class="policy-link">Privacy Policy</a>
+          </label>
+        </div>
+
+        <div class="fingerprint-section">
+          <button type="button" class="fingerprint-btn" (click)="registerWithFingerprint()">
+            <i class="fas fa-fingerprint"></i> Capture Fingerprint
+          </button>
+        </div>
+
+        <button type="submit" class="submit-btn" [disabled]="registerForm.invalid || !isEmailValid() || !isPasswordStrong()">
+          REGISTER
+        </button>
+
+        <div class="login-link">
+          <p>Already have an account? <a routerLink="/user/login">Login</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Popup remains unchanged -->
+
+<!-- Full-Screen Overlay for Registration Success -->
+<div *ngIf="showPopup" class="overlay">
+  <div class="popup">
+    <div class="popup-header">
+      <div class="icon"><i class="fas fa-check-circle"></i></div>
+      <h1>{{ popupMessage }}</h1>
+    </div>
+    <div class="popup-body">
+      <p>You have successfully registered.</p>
+    </div>
+    <div class="popup-footer">
+      <button (click)="closePopup()">Continue</button>
+    </div>
+  </div>
+</div>

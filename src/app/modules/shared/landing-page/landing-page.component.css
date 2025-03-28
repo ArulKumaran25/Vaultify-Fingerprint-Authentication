@@ -1,0 +1,93 @@
+/* Full-screen Background with Vault Image */
+.landing-container {
+  margin-top: 0px;
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background: url('/assets/firstpage.jpg') no-repeat center center/cover; /* Ensure the image covers the entire container */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Move content left */
+  justify-content: center;
+  text-align: left;
+  padding-left: 10%; /* Moves text into the empty space */
+  overflow: hidden; /* Prevents horizontal scroll issues */
+  box-sizing: border-box; /* Ensures padding is included in height calculation */
+}
+
+/* Title Styling */
+.title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #f8f9fa;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  margin-bottom: 15px;
+}
+
+/* Subtitle Styling */
+.subtitle {
+  font-size: 1.5rem;
+  color: #ddd;
+  max-width: 600px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  margin-bottom: 30px;
+}
+
+/* Get Started Button */
+.get-started-btn {
+  background: rgba(255, 166, 0, 0.658);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.get-started-btn:hover {
+  background: rgb(43, 90, 139);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .landing-container {
+    padding-left: 5%; /* Reduce padding for smaller screens */
+  }
+
+  .title {
+    font-size: 3.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+  }
+
+  .get-started-btn {
+    font-size: 1.1rem;
+    padding: 11px 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.2rem;
+  }
+
+  .get-started-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}

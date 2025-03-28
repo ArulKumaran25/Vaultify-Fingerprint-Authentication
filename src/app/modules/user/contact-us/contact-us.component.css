@@ -1,0 +1,185 @@
+/* Professional Contact Us Page Styling */
+.contact-us-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw; 
+  font-family: 'Georgia', serif;
+  padding: 0;
+  box-sizing: border-box;
+  background: url('/assets/contact-us-bg.jpg') no-repeat center center/cover;
+  position: fixed; /* Ensures full-screen layout */
+  top: 0;
+  left: 0;
+  overflow: hidden; /* Prevents scrolling */
+}
+
+/* Main container for form and information section */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px; /* Optimal width for balance */
+  gap: 50px; /* Mutual gap between sections */
+}
+
+/* Form box styling */
+.form-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(140, 124, 61, 0.1);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px; /* Balanced width */
+  backdrop-filter: blur(10px);
+  margin-top: 80px;
+}
+
+/* Headings and labels */
+h1, h2, h3, h4, label, p, li, a {
+  color: #fff; /* Set all text to white for visibility */
+}
+
+/* Headings */
+h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Label styling */
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Input fields and textarea */
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fff;
+  transition: border 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: #8c7c3d;
+  outline: none;
+  box-shadow: 0 0 6px rgba(140, 124, 61, 0.3);
+}
+
+/* Submit button styling */
+button[type="submit"] {
+  background: #8c7c3d;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, background 0.3s ease;
+  width: 100%;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-3px);
+  background: #c3a867;
+}
+
+button[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+/* Assistance section styling */
+.assistance-section {
+  flex: 1;
+  max-width: 350px;
+  padding: 20px;
+  text-align: left; /* Ensures alignment */
+  margin-top: 70px;
+}
+
+/* FAQs and assistance section */
+.assistance-section h2, .faq-section h3, .assistance-section h4 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.assistance-section p {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Frequently Asked Questions section */
+.faq-section {
+  margin-top: 20px;
+}
+
+.faq-section ul {
+  padding-left: 20px;
+}
+
+.faq-section li {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+/* Social links */
+.social-links {
+  margin-top: 15px;
+}
+
+.social-links a {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .form-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .form-box, .assistance-section {
+    max-width: 90%;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Custom Snackbar Styles */
+.success-snackbar {
+  background-color: #4caf50; /* Green background for success */
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336; /* Red background for error */
+  color: white;
+}

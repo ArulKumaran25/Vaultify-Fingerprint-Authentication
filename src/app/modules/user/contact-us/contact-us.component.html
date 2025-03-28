@@ -1,0 +1,93 @@
+<div class="contact-us-container">
+  <div class="form-container">
+    <div class="form-box">
+      <h1>Contact Us</h1>
+      <p class="contact-description">
+        Have questions or feedback? Reach out to us and we'll assist you.
+      </p>
+
+      <!-- Contact Form -->
+      <form (ngSubmit)="submitContactForm()" #contactForm="ngForm">
+        <!-- Name Input -->
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          class="form-control"
+          [(ngModel)]="contactFormData.name"
+          required
+          placeholder="Enter your name"
+          (blur)="isValidName(contactFormData.name)"
+        />
+        <p *ngIf="!isValidName(contactFormData.name) && contactFormData.name" class="error-message">
+          Name must be at least 3 characters (letters & spaces only).
+        </p>
+
+        <!-- Email Input -->
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          [(ngModel)]="contactFormData.email"
+          required
+          placeholder="Enter your email"
+          (blur)="isValidEmail(contactFormData.email)"
+        />
+        <p *ngIf="!isValidEmail(contactFormData.email) && contactFormData.email" class="error-message">
+          Please enter a valid email address.
+        </p>
+
+        <!-- Message Input -->
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          class="form-control"
+          [(ngModel)]="contactFormData.message"
+          required
+          placeholder="Enter your message"
+          rows="4"
+        ></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="contactForm.invalid" class="btn-submit">
+          Submit
+        </button>
+
+        <!-- Success/Error Message -->
+        <div *ngIf="formStatus" class="form-status">
+          <p [ngClass]="{ success: isSuccess, error: !isSuccess }">{{ formStatus }}</p>
+        </div>
+      </form>
+    </div>
+
+    <!-- Assistance Section -->
+    <div class="assistance-section">
+      <h4>Need Immediate Assistance?</h4>
+      <p>Phone: +1 234 567 8900</p>
+      <p>Our support team is available 24/7 to help you.</p>
+      <br>
+
+      <div class="faq-section">
+        <h4>Frequently Asked Questions</h4>
+        <ul>
+          <li>How secure is my data in Vaultify?</li>
+          <li>Can I recover deleted files?</li>
+          <li>How do I enable fingerprint authentication?</li>
+        </ul>
+      </div>
+      <br>
+
+      <h4>Follow Us</h4>
+      <p>Stay updated with Vaultify news:</p>
+      <p>
+        <a href="https://twitter.com/vaultify" target="_blank">Twitter</a> |
+        <a href="https://linkedin.com/company/vaultify" target="_blank">LinkedIn</a> |
+        <a href="https://instagram.com/vaultify" target="_blank">Instagram</a>
+      </p>
+    </div>
+  </div>
+</div>

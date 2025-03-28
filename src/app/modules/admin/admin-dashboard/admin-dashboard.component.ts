@@ -154,7 +154,7 @@ export class AdminDashboardComponent implements OnInit {
       return acc;
     }, {} as { [key: string]: number });
   
-    // Convert to array and sort by date
+    // Convert to array and sort by date 
     const data = Object.keys(userCounts)
       .map(dateStr => {
         const [year, month, day] = dateStr.split('-').map(Number);
